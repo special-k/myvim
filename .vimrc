@@ -1,6 +1,7 @@
 call pathogen#infect()
 
 source ~/.iabbrev
+"setlocal spell spelllang=ru_yo,en_us
 
 "Use Vim settings, rather then Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
@@ -20,6 +21,7 @@ set incsearch "find the next match as we type the search
 set hlsearch "hilight searches by default
 
 set nowrap "dont wrap lines
+"set wrap "wrap lines
 set linebreak "wrap lines at convenient points
 
 "statusline setup
@@ -207,6 +209,7 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 set autoindent
+filetype indent on    " Enable filetype-specific indenting
 
 "folding settings
 set foldmethod=indent "fold based on indent
@@ -292,20 +295,45 @@ set tags+=tmp/tags
 set tags+=gemtags
 
 "mapping
-   nmap <F4> :call RefreshSyntax()<cr>
-   nmap ,, :FufFile<CR>
-   nmap ,l :FufCoverageFile<CR>
-   "nmap ,l :FufTag<CR>
-   nmap ,m :FufDir<CR>
-   nmap ,k :FufBuffer<CR>
-   nmap ,. :FufChangeList<CR>
-   nmap ,e :Errors<CR>
-   nmap ,r :Rtags<CR>
-   nmap ,n :FufRenewCache<CR>
-   nmap gt [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+"
+set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+nmap <F4> :call RefreshSyntax()<cr>
+nmap ,, :FufFile<CR>
+let g:fuf_coveragefile_exclude = '\.js$\|.html$\|tmp/*\|public/*'
+"TODO .fuf_exclude file
+"let g:fuf_coveragefile_globPatterns = ['**/.*', '**/*']
+"call fuf#setOneTimeVariables(['g:fuf_ignoreCase', 0], ['&lines', 50])
+nmap ,l :FufCoverageFile<CR>
+nmap ,m :FufDir<CR>
+nmap ,k :FufBuffer<CR>
+"nmap ,. :FufChangeList<CR>
+"nmap ,. :FufTag<CR>
+nmap ,/ :FufTag<CR>
+nmap ,. :FufBufferTag<CR>
+nmap ,e :Errors<CR>
+"nmap ,r :Rtags<CR>
+nmap ,n :FufRenewCache<CR>
+nmap gt [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" resize current buffer by +/- 5 
+nmap K <NOP>
+nnoremap <C-y> :resize 37<cr>
+nnoremap <C-u> :resize 3<cr>
+
+if !exists( "*EndToken" )
+  function EndToken()
+    let current_line = getline( '.' )
+    let braces_at_end = '{\s*|\(,\|\s\|\w*|\s*\)\?$'
+    if match( current_line, braces_at_end ) >= 0
+      return '}'
+    else
+      return 'end'
+    endif
+  endfunction
+endif
+imap <S-CR> <ESC>:execute 'normal o' . EndToken()<CR>O
 
 nnoremap <C-T> :TagbarToggle<CR>
-
+"ctag
 let g:tagbar_type_coffee = {
     \ 'ctagstype' : 'coffee',
     \ 'kinds'     : [
@@ -314,6 +342,10 @@ let g:tagbar_type_coffee = {
         \ 'c:class'
     \ ],
 \ }
+let g:fuf_buffertag__coffee='--language-force=coffee'
+let g:fuf_buffertag__js='--language-force=js'
+"let g:fuf_buffertag__css='--language-force=css'
+"let g:fuf_buffertag__sass='--language-force=sass'
 
 "make <c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>

@@ -13,9 +13,6 @@
 [submodule "bundle/vim-coffee-script"]
 	path = bundle/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
-[submodule "bundle/vim-rails"]
-	path = bundle/vim-rails
-	url = https://github.com/tpope/vim-rails.git
 [submodule "bundle/vim-ruby-refactoring"]
 	path = bundle/vim-ruby-refactoring
 	url = https://github.com/ecomba/vim-ruby-refactoring.git
@@ -28,3 +25,12 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/majutsushi/tagbar.git
+[submodule "bundle/vim-ruby"]
+	path = bundle/vim-ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/vim-javascript-syntax"]
+	path = bundle/vim-javascript-syntax
+	url = git://github.com/billychan/vim-javascript-syntax.git
+[submodule "bundle/BufClose"]
+	path = bundle/BufClose
+	url = git://github.com/vim-scripts/BufClose.vim.git
