@@ -1,3 +1,9 @@
+set encoding=utf-8
+scriptencoding utf-8
+set fileencodings=utf-8,cp1251,koi8-r,cp866
+
+set runtimepath+=~/.vim
+runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
 source ~/.iabbrev
@@ -283,7 +289,11 @@ set guioptions-=b
 
 "color end font
 colorscheme special-vividchalk
-set guifont=Ubuntu\ Mono\ 12
+if has("win32")
+  set guifont=Consolas:h14
+else
+  set guifont=Ubuntu\ Mono\ 12
+endif
 
 "mark syntax errors
 let g:syntastic_enable_signs=1
